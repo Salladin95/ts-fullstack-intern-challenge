@@ -1,20 +1,44 @@
-import "./index.css"
-import axios from "~/app/axios.ts"
 import React from "react"
+import { FavoriteIcon } from "~/shared/ui"
+import { useInfiniteCats } from "~/shared/api"
+import { useInView } from "react-intersection-observer"
 
-async function fetchCats() {
-	const res = await axios.get(
-		"/images/search?size=med&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=1",
-	)
-	return res.data
-}
+import "./index.css"
 
 export function App() {
+	const { data: cats, isPending: isCatsLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteCats()
+
+	const { ref, inView } = useInView({
+		threshold: 1,
+	})
+
 	React.useEffect(() => {
-		;(async function () {
-			const cats = await fetchCats()
-			console.log(cats)
-		})()
-	}, [])
-	return <>Here we go</>
+		if (inView) {
+			hasNextPage && fetchNextPage()
+		}
+	}, [inView, hasNextPage, fetchNextPage])
+
+	if (isCatsLoading) {
+		// Initial render
+		return <>Loading...</>
+	}
+
+	return (
+		<main className={"container"}>
+			<section className={"cards"}>
+				{cats?.pages.map((page, pageIndex) => (
+					<React.Fragment key={pageIndex}>
+						{page.map((cat) => (
+							<div className={"card"} key={cat.id}>
+								<img src={cat.url} alt={"cat"} />
+								<FavoriteIcon />
+							</div>
+						))}
+					</React.Fragment>
+				))}
+			</section>
+			<div ref={ref} />
+			{isFetchingNextPage && <div className={"infinite-loader"}>... загружаем еще котиков ...</div>}
+		</main>
+	)
 }
