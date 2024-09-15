@@ -1,2 +1,5 @@
-export * from "./FavoriteIcon.tsx"
-export * from "./FavoriteFilledIcon.tsx"
+export * from "./Tab"
+export * from "./spinner"
+export * from "./Tablist"
+export * from "./FavoriteIcon"
+export * from "./FavoriteFilledIcon"

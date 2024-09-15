@@ -1,5 +1,7 @@
 .container {
     --transition: 0.3s;
+    --blue-500: #2196F3;
+    --blue-600: #1E88E5;
 }
 
 .container {
@@ -53,6 +55,24 @@
 .infinite-loader {
     text-align: center;
     margin-bottom: 2rem;
+}
+
+.tab-list {
+    background-color: var(--blue-500);
+}
+
+.tab {
+    cursor: pointer;
+    color: white;
+    min-width: 7.5rem;
+    height: 4rem;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    transition: color var(--transition);
+}
+
+.tab[data-active="true"] {
+    background-color: var(--blue-600);
 }
 
 @media (min-width: 560px) {

@@ -13,3 +13,13 @@ export type Cat = {
 }
 
 export type IconProps = React.HTMLAttributes<SVGElement> & { viewBox?: string }
+
+export type TabType = {
+	id: string
+	label: string
+}
+
+export enum TabOption {
+	ALL = "all",
+	FAVORITES = "favorites",
+}

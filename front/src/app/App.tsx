@@ -1,44 +1,26 @@
-import React from "react"
-import { FavoriteIcon } from "~/shared/ui"
-import { useInfiniteCats } from "~/shared/api"
-import { useInView } from "react-intersection-observer"
+import { tabs } from "~/shared/constants"
+import { Tab, TabList } from "~/shared/ui"
+import { TabOption, TabType } from "~/shared/types"
+import { AllCatsTab, FavoritesTab } from "~/widgets"
 
 import "./index.css"
 
 export function App() {
-	const { data: cats, isPending: isCatsLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteCats()
+	function renderTabContent(tab: TabType) {
+		return <section className={"container"}>{tab.id === TabOption.ALL ? <AllCatsTab /> : <FavoritesTab />}</section>
+	}
 
-	const { ref, inView } = useInView({
-		threshold: 1,
-	})
-
-	React.useEffect(() => {
-		if (inView) {
-			hasNextPage && fetchNextPage()
-		}
-	}, [inView, hasNextPage, fetchNextPage])
-
-	if (isCatsLoading) {
-		// Initial render
-		return <>Loading...</>
+	function renderTab(props: TabType & { onClick: () => void; isActive: boolean }) {
+		return <Tab {...props} />
 	}
 
 	return (
-		<main className={"container"}>
-			<section className={"cards"}>
-				{cats?.pages.map((page, pageIndex) => (
-					<React.Fragment key={pageIndex}>
-						{page.map((cat) => (
-							<div className={"card"} key={cat.id}>
-								<img src={cat.url} alt={"cat"} />
-								<FavoriteIcon />
-							</div>
-						))}
-					</React.Fragment>
-				))}
-			</section>
-			<div ref={ref} />
-			{isFetchingNextPage && <div className={"infinite-loader"}>... загружаем еще котиков ...</div>}
+		<main>
+			<TabList
+				renderTab={(tab, onClick, isActive) => renderTab({ ...tab, onClick, isActive })}
+				renderTabContent={renderTabContent}
+				tabs={tabs}
+			/>
 		</main>
 	)
 }
