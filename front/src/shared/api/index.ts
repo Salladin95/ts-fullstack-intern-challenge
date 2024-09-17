@@ -10,8 +10,8 @@ import {
 	UseQueryOptions,
 } from "@tanstack/react-query"
 
-const catsBaseUrl = import.meta.env.VITE_CATS_API_BASE_URL
-const likesBaseURl = import.meta.env.VITE_LIKES_API_BASE_URL
+const catsBaseUrl = "https://api.thecatapi.com/v1"
+const likesBaseURl = "http://localhost:8080/api"
 
 async function fetchCats({ page = 0, limit = 1 }: FilterOptions): Promise<Cat[]> {
 	const res = await axios.get<Cat[]>(

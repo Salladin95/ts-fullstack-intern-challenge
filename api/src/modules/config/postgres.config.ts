@@ -9,20 +9,20 @@ export type PostgresConfigOptions = {
 };
 
 export enum PostgresConfigEnum {
-  PORT = 'postgres.port',
+  HOST = 'postgres.host',
   DB = 'postgres.db',
+  PORT = 'postgres.port',
   PASSWORD = 'postgres.password',
   USER = 'postgres.user',
-  HOST = 'postgres.host',
 }
 
 export default registerAs(
   'postgres',
   (): PostgresConfigOptions => ({
-    port: parseInt(process.env.POSTGRES_PORT, 10),
-    host: process.env.POSTGRES_HOST,
-    db: process.env.POSTGRES_DB,
-    password: process.env.POSTGRES_PASSWORD,
-    user: process.env.POSTGRES_USER,
+    port: 5432,
+    host: 'cat-pinterest-api-pg',
+    db: 'support_lk_db',
+    password: '1',
+    user: 'postgres',
   }),
 );

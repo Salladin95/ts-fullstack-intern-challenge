@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 
 	headers: {
 		"Content-Type": "application/json",
-		"x-api-key": import.meta.env.VITE_API_KEY,
+		"x-api-key": "live_equhrIqCqOhgAt9owSrryRmuhECUtqUhwgoBZo9czR2vpZ7V2ZFe9Nc79zbmaanr",
 		Accept: "application/json",
 		TimeZone: new Date().getTimezoneOffset() / -60,
 	},

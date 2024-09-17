@@ -10,7 +10,7 @@ export function AllCatsTab() {
 
 	const favorites = React.useMemo(() => {
 		const ids = new Set<string>()
-		likes?.forEach(({ cat_id }) => ids.add(cat_id))
+		likes?.forEach((like) => ids.add(like?.cat_id))
 		return ids
 	}, [likes])
 

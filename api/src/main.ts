@@ -1,15 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { AppConfigEnum } from './modules/config/app.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: true,
-    credentials: true,
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   });
 
   app.useGlobalPipes(
@@ -20,8 +19,7 @@ async function bootstrap() {
     }),
   );
 
-  const configService = app.get(ConfigService);
-  const port = configService.get(AppConfigEnum.PORT);
+  const port = 3000;
 
   app.listen(port);
   console.log(`server is listening on port: ${port}`);
