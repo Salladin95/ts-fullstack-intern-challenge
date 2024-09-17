@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { User } from '../user/user.entity';
 import { Like } from '../like/likes.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -19,7 +20,7 @@ import postgresConfig, { PostgresConfigEnum } from '../config/postgres.config';
         username: configService.get(PostgresConfigEnum.USER),
         password: configService.get(PostgresConfigEnum.PASSWORD),
         database: configService.get(PostgresConfigEnum.DB),
-        entities: [Like],
+        entities: [Like, User],
         synchronize: true,
       }),
     }),
