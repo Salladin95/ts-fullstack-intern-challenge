@@ -24,6 +24,10 @@ img {
     height: auto;
 }
 
+button {
+    all: unset;
+}
+
 body {
     font-family: "Noto Sans", sans-serif;
 }
@@ -69,4 +73,12 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.w-full {
+    width: 100%;
+}
+
+.h-full {
+    height: 100%;
 }

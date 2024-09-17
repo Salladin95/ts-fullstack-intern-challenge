@@ -12,6 +12,11 @@ export type Cat = {
 	id: string
 }
 
+export type Like = {
+	cat_id: string
+	created_at?: string
+}
+
 export type IconProps = React.HTMLAttributes<SVGElement> & { viewBox?: string }
 
 export type TabType = {

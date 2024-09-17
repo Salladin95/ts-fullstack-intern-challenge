@@ -11,11 +11,11 @@ export function App() {
 	}
 
 	function renderTab(props: TabType & { onClick: () => void; isActive: boolean }) {
-		return <Tab {...props} />
+		return <Tab key={props.id} {...props} />
 	}
 
 	return (
-		<main>
+		<main className={"w-full"}>
 			<TabList
 				renderTab={(tab, onClick, isActive) => renderTab({ ...tab, onClick, isActive })}
 				renderTabContent={renderTabContent}

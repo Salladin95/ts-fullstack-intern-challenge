@@ -1,4 +1,4 @@
-.container {
+#root {
     --transition: 0.3s;
     --blue-500: #2196F3;
     --blue-600: #1E88E5;
@@ -57,7 +57,7 @@
     margin-bottom: 2rem;
 }
 
-.tab-list {
+.bg-blue {
     background-color: var(--blue-500);
 }
 

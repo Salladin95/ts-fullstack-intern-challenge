@@ -4,7 +4,6 @@ import axios from "axios"
  * Core axios instance
  * */
 const axiosInstance = axios.create({
-	baseURL: "https://api.thecatapi.com/v1",
 	timeout: 30000,
 
 	headers: {

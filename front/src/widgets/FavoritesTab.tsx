@@ -1,42 +1,23 @@
 import React from "react"
-import { useInfiniteCats } from "~/shared/api"
-import { FavoriteIcon, Spinner } from "~/shared/ui"
-import { useInView } from "react-intersection-observer"
+import { Card } from "~/entities"
+import { Spinner } from "~/shared/ui"
+import { useFetchCatsByIDS, useFetchLikes } from "~/shared/api"
 
 export function FavoritesTab() {
-	const { data: cats, isPending: isCatsLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteCats()
+	const { data: likes } = useFetchLikes({})
 
-	const { ref, inView } = useInView({
-		threshold: 1,
-	})
+	const favorites = React.useMemo(() => {
+		const ids = new Set<string>()
+		likes?.forEach(({ cat_id }) => ids.add(cat_id))
+		return ids
+	}, [likes])
 
-	React.useEffect(() => {
-		if (inView) {
-			hasNextPage && fetchNextPage()
-		}
-	}, [inView, hasNextPage, fetchNextPage])
+	const { data: cats, isPending: isCatsLoading } = useFetchCatsByIDS([...favorites])
 
 	if (isCatsLoading) {
 		// Initial render
 		return <Spinner containerProps={{ className: "absolute-center" }} />
 	}
 
-	return (
-		<>
-			<section className={"cards"}>
-				{cats?.pages.map((page, pageIndex) => (
-					<React.Fragment key={pageIndex}>
-						{page.map((cat) => (
-							<div className={"card"} key={cat.id}>
-								<img src={cat.url} alt={"cat"} />
-								<FavoriteIcon />
-							</div>
-						))}
-					</React.Fragment>
-				))}
-			</section>
-			<div ref={ref} />
-			{isFetchingNextPage && <div className={"infinite-loader"}>... загружаем еще котиков ...</div>}
-		</>
-	)
+	return <section className={"cards"}>{cats?.map((cat) => <Card isFavorite={true} {...cat} key={cat.id} />)}</section>
 }

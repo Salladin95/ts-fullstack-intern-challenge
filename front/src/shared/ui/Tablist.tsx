@@ -13,11 +13,13 @@ export function TabList(props: TabListProps) {
 	const [activeTab, setActiveTab] = React.useState(defaultTab || tabs?.[0])
 
 	return (
-		<div className={""}>
-			<ul className={"tab-list container flex"}>
-				{tabs.map((tab) => renderTab(tab, () => setActiveTab(tab), activeTab?.id === tab.id))}
-			</ul>
-			{renderTabContent(activeTab)}
+		<div className={"w-full"}>
+			<div className={"bg-blue"}>
+				<ul className={"container flex"}>
+					{tabs.map((tab) => renderTab(tab, () => setActiveTab(tab), activeTab?.id === tab.id))}
+				</ul>
+			</div>
+			<div>{renderTabContent(activeTab)}</div>
 		</div>
 	)
 }
